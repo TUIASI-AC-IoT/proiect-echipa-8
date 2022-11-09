@@ -1,7 +1,7 @@
 from tkinter import messagebox
 
 
-def SetRequest():
+def SetRequestRun():
     conectatAgent = 0
     if conectatAgent==1:
         #implementare GetRequest

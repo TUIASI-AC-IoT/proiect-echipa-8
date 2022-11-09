@@ -1,10 +1,9 @@
 from tkinter import messagebox
 
-
-def GetRequestRun():
+def InformRun():
     conectatAgent = 0
     if conectatAgent==1:
-        #implementare GetRequest
+        #implementare Inform
         conectatAgent=0
     else:
         messagebox.showinfo("Error", "Nu sunteti conectat la agent.")
