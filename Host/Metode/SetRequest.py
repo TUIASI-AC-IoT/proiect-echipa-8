@@ -1,10 +1,11 @@
 from tkinter import messagebox
+import socket
 
 
 def SetRequestRun():
-    conectatAgent = 0
-    if conectatAgent==1:
-        #implementare GetRequest
-        conectatAgent=0
-    else:
-        messagebox.showinfo("Error", "Nu sunteti conectat la agent.")
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect(('127.0.0.1', 161))
+    s.sendall(bytes("SetRequest", "utf-8"))
+    data = s.recv(1024)
+    print("Received", repr(data))
+    s.close()
