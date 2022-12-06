@@ -1,6 +1,6 @@
 from tkinter import *
-from Metode.GetRequest import GetRequestRun
-from Metode.SetRequest import SetRequestRun
+from Host.Metode.GetRequest import GetRequestRun
+from Host.Metode.SetRequest import SetRequestRun
 
 
 window = Tk()
