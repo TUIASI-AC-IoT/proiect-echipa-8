@@ -7,4 +7,4 @@ def GetRequestRun():
         #implementare GetRequest
         conectatAgent=0
     else:
-        messagebox.showinfo("Error", "Nu sunteti conectat la agent.")
+        messagebox.showinfo("Error",  "Nu sunteti conectat la agent.")
