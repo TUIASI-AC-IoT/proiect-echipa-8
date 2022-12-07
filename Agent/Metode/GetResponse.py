@@ -9,7 +9,7 @@ def GetResponse(conn,data):
             # oid: 1.127.10.5.6
             conn.sendall(bytes("Temperatura: 25", "utf-8"))
             break
-        if (data == b'GetRequestName'):
+        elif (data == b'GetRequestName'):
             # oid: 1.127.10.5.6
             conn.sendall(bytes(Name , "utf-8"))
             break

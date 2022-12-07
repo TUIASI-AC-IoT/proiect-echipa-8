@@ -14,18 +14,12 @@ while 1:
     data = conn.recv(1024)
     if not data: break
     print(data)
-    if (data == b'GetRequestTemperature'):
+    if (data[0:10] == b'GetRequest'):
         # oid: 1.127.10.5.6
         GetResponse(conn,data)
-        break
-    if (data == b'GetRequestName'):
-        # oid: 1.127.10.5.6
-        GetResponse(conn, data)
-        break
-    if (data[0:14] == b'SetRequestName'):
+    elif (data[0:10] == b'SetRequest'):
         # oid: 1.127.10.5.6
         SetResponse(conn,data)
-        break
     else:
         conn.sendall(bytes("Invalid", "utf-8"))
         break
