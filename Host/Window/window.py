@@ -1,6 +1,6 @@
 from tkinter import *
-from Host.Metode.GetRequest import GetRequestRun
-from Host.Metode.SetRequest import SetRequestRun
+from Host.Metode.GetRequest import GetRequest
+from Host.Metode.SetRequest import SetRequest
 
 
 window = Tk()
@@ -12,11 +12,11 @@ def startWindow():
     window.configure(bg='lightgrey')
 
     # Buton Get Request
-    getRequestButton = Button(window, text="GetRequest", command=GetRequestRun)
+    getRequestButton = Button(window, text="GetRequest", command=GetRequest)
     getRequestButton.place(x=75, y=400)
 
     # Buton Set Request
-    setRequestButton = Button(window, text="Set Request", command=SetRequestRun)
+    setRequestButton = Button(window, text="Set Request", command=SetRequest)
     setRequestButton.place(x=175, y=400)
 
 

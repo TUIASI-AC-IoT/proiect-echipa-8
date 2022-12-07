@@ -2,7 +2,7 @@ from tkinter import messagebox
 import socket
 
 
-def SetRequestRun():
+def SetRequest():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(('127.0.0.1', 161))
     s.sendall(bytes("SetRequest", "utf-8"))
