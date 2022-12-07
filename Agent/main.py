@@ -2,8 +2,6 @@ import socket
 from Metode.GetResponse import GetResponse
 from Metode.SetResponse import SetResponse
 
-
-
 #test
 UDPport=161
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,6 +21,10 @@ while 1:
     if (data == b'GetRequestName'):
         # oid: 1.127.10.5.6
         GetResponse(conn, data)
+        break
+    if (data[0:14] == b'SetRequestName'):
+        # oid: 1.127.10.5.6
+        SetResponse(conn,data)
         break
     else:
         conn.sendall(bytes("Invalid", "utf-8"))
