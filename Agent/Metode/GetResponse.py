@@ -1,7 +1,7 @@
 import socket
-
+from Agent.MIB import *
 def GetResponse(conn,data):
-    Name='andrei'
+
     while 1:
         if not data: break
         print(data)
@@ -11,7 +11,7 @@ def GetResponse(conn,data):
             break
         elif (data == b'GetRequestName'):
             # oid: 1.127.10.5.6
-            conn.sendall(bytes(Name , "utf-8"))
+            conn.sendall(bytes(MIB.Name , "utf-8"))
             break
         else:
             conn.sendall(bytes("Invalid", "utf-8"))
