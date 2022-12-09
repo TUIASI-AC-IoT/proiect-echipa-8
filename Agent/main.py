@@ -1,11 +1,15 @@
 import socket
 from Metode.GetResponse import GetResponse
 from Metode.SetResponse import SetResponse
+from Metode.Trap import *
+import threading
 
-
+threading.Thread(target=checkTrap()).start()
+daemon = threading.Thread(target=checkTrap(), daemon=True, name='Monitor')
 while 1:
     #test
     UDPport=161
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((socket.gethostname(), UDPport))
     s.listen(1)

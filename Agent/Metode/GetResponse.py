@@ -32,4 +32,6 @@ def GetResponse(conn,data):
             conn.sendall(bytes("Invalid", "utf-8"))
             break
 
+
+
     #test
