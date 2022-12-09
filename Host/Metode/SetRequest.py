@@ -9,6 +9,8 @@ def SetRequest():
     window.title("Selectati informatia dorita")
     window.configure(width=100, height=300)
 
+
+
     # Buton Nume
     nameButton = Button(window, text="Nume", command=setRequestName)
     nameButton.place(x=35, y=50)
@@ -44,8 +46,8 @@ def setRequestName():
     window.title("Introduceti numele")
     window.configure(width=300, height=100)
 
-    inputtxt = Text(window, height=10,
-                    width=25,
+    inputtxt = Text(window, height=2,
+                    width=10,
                     bg="light yellow")
     inputtxt.pack()
 
