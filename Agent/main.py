@@ -29,10 +29,10 @@ while 1:
         if not OID: break
         print("OID este: " + OID.decode("utf-8"))
 
-        if (OID[0:10] == b'GetRequest'):
+        if (OID[0:10] == b'2.16.840.1'):
             # oid: 1.127.10.5.6
             GetResponse(OID,address,UDPAgent)
-        elif (OID[0:10] == b'SetRequest'):
+        elif (OID[0:7] == b'1.3.6.1'):
             # oid: 1.127.10.5.6
             SetResponse(OID,address, UDPAgent)
         else:

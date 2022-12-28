@@ -25,10 +25,10 @@ def introdusNume(inputtxt):
     conn = socket.gethostname()
 
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    UDPclient.sendto(str.encode("SetRequestName"+nume), (conn, 161))
+    UDPclient.sendto(str.encode("1.3.6.1.4.1.9.3.5.7"+nume), (conn, 161))
 
-    data = UDPclient.recvfrom(1024)
-    print("Received", repr(data))
+    data = UDPclient.recvfrom(1024)[0]
+    print("Received", data.decode())
 
 def setRequestName():
 
