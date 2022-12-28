@@ -15,10 +15,6 @@ def SetRequest():
     nameButton = Button(window, text="Nume", command=setRequestName)
     nameButton.place(x=35, y=50)
 
-    # Buton Temperatura
-    temperatureButton = Button(window, text="Temperatura", command=setRequestTemperatura)
-    temperatureButton.place(x=20, y=100)
-
     # Buton Inapoi
     backButton = Button(window, text="Inapoi", command=window.destroy)
     backButton.place(x=35, y=250)
@@ -26,19 +22,14 @@ def SetRequest():
 def introdusNume(inputtxt):
     nume = inputtxt.get("1.0", "end-1c")
     print(nume)
+    conn = socket.gethostname()
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("SetRequest", "utf-8"))
-    s.sendall(bytes("Name", "utf-8"))
+    UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    UDPclient.sendto(str.encode("SetRequestName"+nume), (conn, 161))
 
-    s.sendall(bytes(nume, "utf-8"))
-    data = s.recv(1024)
+    data = UDPclient.recvfrom(1024)
     print("Received", repr(data))
-    s.close()
+
 def setRequestName():
 
     #window pentru introdus numele
@@ -57,21 +48,6 @@ def setRequestName():
                      command=lambda: introdusNume(inputtxt))
     Display.pack()
 
-
-
-
-def setRequestTemperatura():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("SetRequest", "utf-8"))
-    s.sendall(bytes("Temperature", "utf-8"))
-    s.sendall(bytes("20", "utf-8"))
-    data = s.recv(1024)
-    print("Received", repr(data))
-    s.close()
 
 
 

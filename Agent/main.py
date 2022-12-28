@@ -4,30 +4,38 @@ from Metode.SetResponse import SetResponse
 from Metode.Trap import *
 import threading
 
-threading.Thread(target=checkTrap()).start()
-daemon = threading.Thread(target=checkTrap(), daemon=True, name='Monitor')
+#threading.Thread(target=checkTrap()).start()
+
+#daemon = threading.Thread(target=checkTrap(), daemon=True, name='Monitor')
 while 1:
     #test
     UDPport=161
+    localIP = socket.gethostname()
+    localport = 161
+    bufferSize = 1024;
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((socket.gethostname(), UDPport))
-    s.listen(1)
-    print('Asteapta Conexiuni')
-    conn, addr = s.accept()
-    print('Conectat la', addr)
+    UDPAgent = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+    UDPAgent.bind((localIP, localport))
+
+    print('Agentul este activ')
+
     while 1:
-        data = conn.recv(1024)
-        if not data: break
-        print(data)
-        if (data[0:10] == b'GetRequest'):
-            # oid: 1.127.10.5.6
-            GetResponse(conn,data)
-        elif (data[0:10] == b'SetRequest'):
-            # oid: 1.127.10.5.6
-            SetResponse(conn,data)
-        else:
-            conn.sendall(bytes("Invalid", "utf-8"))
-            break
+        data = UDPAgent.recvfrom(bufferSize)
 
-conn.close()
+        OID = data[0]
+        address = data[1]
+        #print(OID)
+        if not OID: break
+        print("OID este: " + OID.decode("utf-8"))
+
+        if (OID[0:10] == b'GetRequest'):
+            # oid: 1.127.10.5.6
+            GetResponse(OID,address,UDPAgent)
+        elif (OID[0:10] == b'SetRequest'):
+            # oid: 1.127.10.5.6
+            SetResponse(OID,address, UDPAgent)
+        else:
+            UDPAgent.sendto(bytes("Invalid", "utf-8"), address)
+            #conn.sendall(bytes("Invalid", "utf-8"))
+            break

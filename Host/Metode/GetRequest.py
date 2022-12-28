@@ -39,60 +39,77 @@ def GetRequest():
     window.mainloop()
 
 def GetRequestCpuUsage():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("GetRequest", "utf-8"))
-    s.sendall(bytes("Cpu%", "utf-8"))
-    data = s.recv(1024)
+    agentIp = socket.gethostname()
+    conn = bytearray(agentIp, "utf-8")
+
+    bufferSize = 1024
+
+    UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+    UDPclient.sendto(str.encode("GetRequestCpu%"), (conn, 161))
+
+    # s.sendall(bytes("GetRequest", "utf-8"))
+    # s.sendall(bytes("Temperature", "utf-8"))
+    data = UDPclient.recvfrom(bufferSize)
     print("Received", repr(data))
-    s.close()
 def GetRequestRamPercent():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("GetRequest", "utf-8"))
-    s.sendall(bytes("Ram%", "utf-8"))
-    data = s.recv(1024)
+    agentIp = socket.gethostname()
+    conn = bytearray(agentIp, "utf-8")
+
+    bufferSize = 1024
+
+    UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+    UDPclient.sendto(str.encode("GetRequestRam%"), (conn, 161))
+
+    # s.sendall(bytes("GetRequest", "utf-8"))
+    # s.sendall(bytes("Temperature", "utf-8"))
+    data = UDPclient.recvfrom(bufferSize)
     print("Received", repr(data))
-    s.close()
 
 def GetRequestRamGB():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("GetRequest", "utf-8"))
-    s.sendall(bytes("RamGB", "utf-8"))
-    data = s.recv(1024)
+    agentIp = socket.gethostname()
+    conn = bytearray(agentIp, "utf-8")
+
+    bufferSize = 1024
+
+    UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+    UDPclient.sendto(str.encode("GetRequestRamGB"), (conn, 161))
+
+    # s.sendall(bytes("GetRequest", "utf-8"))
+    # s.sendall(bytes("Temperature", "utf-8"))
+    data = UDPclient.recvfrom(bufferSize)
     print("Received", repr(data))
-    s.close()
 def GetRequestName():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("GetRequest", "utf-8"))
-    s.sendall(bytes("Name", "utf-8"))
-    data = s.recv(1024)
+    agentIp = socket.gethostname()
+    conn = bytearray(agentIp, "utf-8")
+
+    bufferSize = 1024
+
+    UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+    UDPclient.sendto(str.encode("GetRequestName"), (conn, 161))
+
+    # s.sendall(bytes("GetRequest", "utf-8"))
+    # s.sendall(bytes("Temperature", "utf-8"))
+    data = UDPclient.recvfrom(bufferSize)
     print("Received", repr(data))
-    s.close()
 
 def GetRequestTemperatura():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect((socket.gethostname(), 161))
-    except:
-        messagebox.showerror("Error", "Nu s-a putut conecta la Agent")
-    s.sendall(bytes("GetRequest", "utf-8"))
-    s.sendall(bytes("Temperature", "utf-8"))
-    data = s.recv(1024)
+
+    agentIp = socket.gethostname()
+    conn = bytearray(agentIp, "utf-8")
+
+    bufferSize = 1024
+
+    UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+
+
+    UDPclient.sendto(str.encode("GetRequestTemperature"), (conn, 161))
+
+    #s.sendall(bytes("GetRequest", "utf-8"))
+    #s.sendall(bytes("Temperature", "utf-8"))
+    data = UDPclient.recvfrom(bufferSize)
     print("Received", repr(data))
-    s.close()
 #test
