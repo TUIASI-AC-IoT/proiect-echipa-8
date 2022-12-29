@@ -1,6 +1,8 @@
 from tkinter import *
 from Host.Metode.GetRequest import GetRequest
 from Host.Metode.SetRequest import SetRequest
+from Host.Metode.ReceiveTrap import ReceiveTrap
+import threading
 
 
 window = Tk()
@@ -19,5 +21,5 @@ def startWindow():
     setRequestButton = Button(window, text="Set Request", command=SetRequest)
     setRequestButton.place(x=140, y=200)
 
-
+    threading.Thread(target=ReceiveTrap).start()
     window.mainloop()

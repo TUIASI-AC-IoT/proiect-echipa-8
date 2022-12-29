@@ -8,8 +8,7 @@ import threading
 
 #daemon = threading.Thread(target=checkTrap(), daemon=True, name='Monitor')
 while 1:
-    #test
-    UDPport=161
+
     localIP = socket.gethostname()
     localport = 161
     bufferSize = 1024;
@@ -19,6 +18,8 @@ while 1:
     UDPAgent.bind((localIP, localport))
 
     print('Agentul este activ')
+
+    threading.Thread(target=checkTrap).start()
 
     while 1:
         data = UDPAgent.recvfrom(bufferSize)
