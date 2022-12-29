@@ -47,8 +47,3 @@ def setRequestName():
                      text="SetName",
                      command=lambda: introdusNume(inputtxt))
     Display.pack()
-
-
-
-
-#test

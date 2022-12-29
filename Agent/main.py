@@ -4,9 +4,7 @@ from Metode.SetResponse import SetResponse
 from Metode.Trap import *
 import threading
 
-#threading.Thread(target=checkTrap()).start()
 
-#daemon = threading.Thread(target=checkTrap(), daemon=True, name='Monitor')
 while 1:
 
     localIP = socket.gethostname()
@@ -26,17 +24,13 @@ while 1:
 
         OID = data[0]
         address = data[1]
-        #print(OID)
         if not OID: break
         print("OID este: " + OID.decode("utf-8"))
 
         if (OID[0:10] == b'2.16.840.1'):
-            # oid: 1.127.10.5.6
             GetResponse(OID,address,UDPAgent)
         elif (OID[0:7] == b'1.3.6.1'):
-            # oid: 1.127.10.5.6
             SetResponse(OID,address, UDPAgent)
         else:
             UDPAgent.sendto(bytes("Invalid", "utf-8"), address)
-            #conn.sendall(bytes("Invalid", "utf-8"))
             break

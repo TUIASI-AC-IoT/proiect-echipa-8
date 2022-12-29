@@ -1,4 +1,3 @@
-from tkinter import messagebox
 from tkinter import *
 import socket
 
@@ -7,9 +6,6 @@ def GetRequest():
     window = Tk()
     window.title("Selectati informatia dorita")
     window.configure(width=100, height=400)
-
-    pressed = False
-
 
     #Buton Nume
     nameButton = Button(window, text="Nume", command=GetRequestName)
@@ -48,8 +44,6 @@ def GetRequestCpuUsage():
 
     UDPclient.sendto(str.encode("2.16.840.1.113883.3.72.5.9.1"), (conn, 161))
 
-    # s.sendall(bytes("GetRequest", "utf-8"))
-    # s.sendall(bytes("Temperature", "utf-8"))
     data = UDPclient.recvfrom(bufferSize)[0]
 
     print("Received", data.decode())
@@ -63,8 +57,6 @@ def GetRequestRamPercent():
 
     UDPclient.sendto(str.encode("2.16.840.1.1.2021.255.3.56.9"), (conn, 161))
 
-    # s.sendall(bytes("GetRequest", "utf-8"))
-    # s.sendall(bytes("Temperature", "utf-8"))
     data = UDPclient.recvfrom(bufferSize)[0]
     print("Received", data.decode())
 
@@ -78,8 +70,6 @@ def GetRequestRamGB():
 
     UDPclient.sendto(str.encode("2.16.840.1.113733.3.4.3.2.1.1"), (conn, 161))
 
-    # s.sendall(bytes("GetRequest", "utf-8"))
-    # s.sendall(bytes("Temperature", "utf-8"))
     data = UDPclient.recvfrom(bufferSize)[0]
     print("Received", data.decode())
 def GetRequestName():
@@ -92,8 +82,6 @@ def GetRequestName():
 
     UDPclient.sendto(str.encode("2.16.840.1.4.1.27385.3.9.6"), (conn, 161))
 
-    # s.sendall(bytes("GetRequest", "utf-8"))
-    # s.sendall(bytes("Temperature", "utf-8"))
     data = UDPclient.recvfrom(bufferSize)[0]
     print("Received", data.decode())
 

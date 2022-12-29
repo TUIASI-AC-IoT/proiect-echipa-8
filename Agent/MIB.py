@@ -1,19 +1,11 @@
 import psutil
-import self as self
-import struct
-
-import time
-from tkinter import *
-from tkinter import messagebox
 class MIB():
     Name = "Agent"
     Temperature = 25
     getData = True
 
-
     def changeName(NewName):
         Name = NewName
-
 
     def getRamPercent(self):
         ramPercent = psutil.virtual_memory()[2]
