@@ -6,10 +6,10 @@ def GetResponse(OID,address, UDPAgent):
         print(OID)
         if (OID == b'2.16.840.1.113883.4.9.8.7.6.5'):
             # oid: GetRequestTemperatura
-            UDPAgent.sendto(bytes(str(MIB.Temperature), "utf-8"), address)
+            UDPAgent.sendto(bytes(str(MIB.getTemperatura(MIB.getData,MIB.Temperature)), "utf-8"), address)
             break
         elif (OID == b'2.16.840.1.4.1.27385.3.9.6'):
-            # oid: GetReqyestName
+            # oid: GetRequestName
             UDPAgent.sendto(bytes(str(MIB.Name), "utf-8"), address)
             break
         elif (OID == b'2.16.840.1.1.2021.255.3.56.9'):

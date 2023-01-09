@@ -11,6 +11,12 @@ def SetResponse(OID,address, UDPAgent):
             print(MIB.Name)
             UDPAgent.sendto(bytes(MIB.Name, "utf-8"), address)
             break
+        elif(OID[0:19] == b'1.3.6.1.4.1.9.3.7.7'):
+            MIB.Temperature = OID[19:len(OID)].decode("utf-8")
+            MIB.changeTemperature(MIB.Temperature)
+            print(MIB.Temperature)
+            UDPAgent.sendto(bytes(MIB.Temperature, "utf-8"), address)
+            break
         else:
             UDPAgent.sendto(bytes("Invalid", "utf-8"), address)
             break
