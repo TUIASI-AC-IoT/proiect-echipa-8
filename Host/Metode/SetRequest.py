@@ -2,6 +2,8 @@ from tkinter import messagebox
 from tkinter import *
 import socket
 
+from Host.SNMPPacket import encodeASN1, decodeASN1
+
 
 def SetRequest():
 
@@ -29,10 +31,12 @@ def introdusNume(inputtxt):
     conn = socket.gethostname()
 
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    UDPclient.sendto(str.encode("1.3.6.1.4.1.9.3.5.7"+nume), (conn, 161))
+    encoded_message = encodeASN1(oid="2.1", text=nume, val=0)
+    UDPclient.sendto(encoded_message, (conn, 161))
 
     data = UDPclient.recvfrom(1024)[0]
-    print("Received", data.decode())
+    text = decodeASN1(data)[1]
+    print("Numele a fost schimbat in ", text)
 
 def setRequestName():
 
@@ -75,22 +79,28 @@ def temperatura1():
     conn = socket.gethostname()
     temp="Celsius"
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    UDPclient.sendto(str.encode("1.3.6.1.4.1.9.3.7.7" + temp), (conn, 161))
+    encoded_message = encodeASN1(oid="2.2", text=temp, val=0)
+    UDPclient.sendto(encoded_message, (conn, 161))
     data = UDPclient.recvfrom(1024)[0]
-    print("Received", data.decode())
+    text = decodeASN1(data)[1]
+    print("Temperatura a fost schimbata in ", text)
 
 def temperatura2():
     conn = socket.gethostname()
     temp="Farenheit"
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    UDPclient.sendto(str.encode("1.3.6.1.4.1.9.3.7.7" + temp), (conn, 161))
+    encoded_message = encodeASN1(oid="2.2", text=temp, val=0)
+    UDPclient.sendto(encoded_message, (conn, 161))
     data = UDPclient.recvfrom(1024)[0]
-    print("Received", data.decode())
+    text = decodeASN1(data)[1]
+    print("Temperatura a fost schimbata in ", text)
 
 def temperatura3():
     conn = socket.gethostname()
     temp="Kelvin"
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    UDPclient.sendto(str.encode("1.3.6.1.4.1.9.3.7.7" + temp), (conn, 161))
+    encoded_message = encodeASN1(oid="2.2", text=temp, val=0)
+    UDPclient.sendto(encoded_message, (conn, 161))
     data = UDPclient.recvfrom(1024)[0]
-    print("Received", data.decode())
+    text = decodeASN1(data)[1]
+    print("Temperatura a fost schimbata in ", text)

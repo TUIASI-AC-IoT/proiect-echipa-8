@@ -1,4 +1,8 @@
 import socket
+
+from pyasn1.codec.ber import decoder
+
+from Host.SNMPPacket import decodeASN1
 from Metode.GetResponse import GetResponse
 from Metode.SetResponse import SetResponse
 from Metode.Trap import *
@@ -22,15 +26,18 @@ while 1:
     while 1:
         data = UDPAgent.recvfrom(bufferSize)
 
-        OID = data[0]
-        address = data[1]
-        if not OID: break
-        print("OID este: " + OID.decode("utf-8"))
+        oid = decodeASN1(data[0])
+        text = oid[1]
+        oid = oid[0]
+        print("oid este ", oid)
 
-        if (OID[0:10] == b'2.16.840.1'):
-            GetResponse(OID,address,UDPAgent)
-        elif (OID[0:7] == b'1.3.6.1'):
-            SetResponse(OID,address, UDPAgent)
+        address = data[1]
+
+
+        if (oid[0] == 1):
+            GetResponse(oid,address,UDPAgent)
+        elif (oid[0] == 2):
+            SetResponse(oid,address, UDPAgent, text)
         else:
             UDPAgent.sendto(bytes("Invalid", "utf-8"), address)
             break

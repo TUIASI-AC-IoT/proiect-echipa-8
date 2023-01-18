@@ -1,21 +1,25 @@
 from Agent.MIB import *
+from Host.SNMPPacket import encodeASN1
 
-def SetResponse(OID,address, UDPAgent):
+
+def SetResponse(OID,address, UDPAgent, text):
 
     while 1:
         if not OID: break
-        if (OID[0:19] == b'1.3.6.1.4.1.9.3.5.7'):
-            MIB.Name=OID[19:len(OID)].decode("utf-8")
+        if (OID[1] == 1):
+            MIB.Name=text
             MIB.changeName(MIB.Name)
 
             print(MIB.Name)
-            UDPAgent.sendto(bytes(MIB.Name, "utf-8"), address)
+            encoded_message = encodeASN1(oid="2.1", text=MIB.Name, val=0)
+            UDPAgent.sendto(encoded_message, address)
             break
-        elif(OID[0:19] == b'1.3.6.1.4.1.9.3.7.7'):
-            MIB.Temperature = OID[19:len(OID)].decode("utf-8")
+        elif(OID[1] == 2):
+            MIB.Temperature = text
             MIB.changeTemperature(MIB.Temperature)
             print(MIB.Temperature)
-            UDPAgent.sendto(bytes(MIB.Temperature, "utf-8"), address)
+            encoded_message = encodeASN1(oid="2.2", text=MIB.Temperature, val=0)
+            UDPAgent.sendto(encoded_message, address)
             break
         else:
             UDPAgent.sendto(bytes("Invalid", "utf-8"), address)

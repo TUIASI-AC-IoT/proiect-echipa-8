@@ -3,6 +3,8 @@ import threading
 from tkinter import *
 from tkinter import messagebox
 import socket
+from Host.SNMPPacket import encodeASN1, decodeASN1
+
 
 import psutil
 
@@ -20,7 +22,8 @@ def checkTrap():
         print(ramPercent)
         if ramPercent > 50 and okRam==0:
             print("Trimite un pachet trap")
-            UDPagent.sendto(str.encode("1.5.4.2"+str(ramPercent)), (conn, 162))
+            encoded_message = encodeASN1(oid="0.0", text="RAM", val=ramPercent)
+            UDPagent.sendto(encoded_message, (conn, 162))
             okRam=1
 
         cpuPercent = psutil.cpu_percent(4)
@@ -28,7 +31,8 @@ def checkTrap():
         print(cpuPercent)
         if cpuPercent > 50 and okCPU==0:
             print("Trimite un pachet trap")
-            UDPagent.sendto(str.encode("1.5.2.2"+str(cpuPercent)), (conn, 162))
+            encoded_message = encodeASN1(oid="1.0", text="CPU", val=cpuPercent)
+            UDPagent.sendto(encoded_message, (conn, 162))
             okCPU = 1
 
         print("")

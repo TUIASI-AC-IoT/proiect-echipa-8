@@ -4,6 +4,10 @@ import wmi
 import time
 from tkinter import *
 from tkinter import messagebox
+
+from pyasn1.type.univ import OctetString
+
+
 class MIB():
     Name = "Agent"
     Temperature= "Celsius"
@@ -17,12 +21,13 @@ class MIB():
             if sensor.SensorType == u'Temperature':
                 break
         if Temperature == "Celsius":
-                    return sensor.Value
-        elif Temperature == "Farenheit":
-                    return (sensor.Value*1.8+32)
-        elif Temperature == "Kelvin":
-                    return (sensor.Value+273.15)
-        return("nuuu")
+            return sensor.Value
+        elif Temperature == OctetString("Farenheit"):
+            print("ajunge aici")
+            return (sensor.Value*1.8+32)
+        elif Temperature == OctetString("Kelvin"):
+            return (sensor.Value+273.15)
+
 
 
     def changeTemperature(NewTemperature):

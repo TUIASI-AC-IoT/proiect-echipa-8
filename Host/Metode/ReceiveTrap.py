@@ -1,5 +1,5 @@
 import socket
-
+from Host.SNMPPacket import encodeASN1, decodeASN1
 
 def ReceiveTrap():
 
@@ -13,11 +13,12 @@ def ReceiveTrap():
         UDPclient.bind((conn, 162))
         while 1:
             data = UDPclient.recvfrom(bufferSize)[0]
-            if not data: break
-            print("Received", data.decode())
-            if data[0:7] == b'1.5.4.2':
-                print("TRAP: RAM % IS: ", data[7:len(data)].decode())
+            decoded = decodeASN1(data)
+            val = decoded[2]
+            oid = decoded[0]
+            if oid[0] == 0:
+                print("TRAP: RAM % IS: ", val)
                 break
-            elif data[0:7] == b'1.5.2.2':
-                print("TRAP: CPU % IS: ", data[7:len(data)].decode())
+            elif oid[0] == 1:
+                print("TRAP: CPU % IS: ", val)
                 break

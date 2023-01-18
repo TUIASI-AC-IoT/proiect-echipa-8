@@ -1,5 +1,10 @@
 from tkinter import *
 import socket
+from pyasn1.codec.ber import encoder
+from pyasn1.type.univ import Integer, OctetString, ObjectIdentifier
+from pyasn1_modules import rfc1902
+from Host.SNMPPacket import encodeASN1, decodeASN1
+
 
 def GetRequest():
 
@@ -35,6 +40,10 @@ def GetRequest():
     window.mainloop()
 
 def GetRequestCpuUsage():
+    encoded_message = encodeASN1(oid="1.5", text="Null", val=0)
+
+    print(encoded_message.hex())
+
     agentIp = socket.gethostname()
     conn = bytearray(agentIp, "utf-8")
 
@@ -42,12 +51,17 @@ def GetRequestCpuUsage():
 
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-    UDPclient.sendto(str.encode("2.16.840.1.113883.3.72.5.9.1"), (conn, 161))
+    UDPclient.sendto(encoded_message, (conn, 161))
 
     data = UDPclient.recvfrom(bufferSize)[0]
-
-    print("Received", data.decode())
+    decoded = decodeASN1(data)
+    text = decoded[2]
+    print("Received", text)
 def GetRequestRamPercent():
+    encoded_message = encodeASN1(oid="1.3", text="Null", val=0)
+
+    print(encoded_message.hex())
+
     agentIp = socket.gethostname()
     conn = bytearray(agentIp, "utf-8")
 
@@ -55,12 +69,18 @@ def GetRequestRamPercent():
 
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-    UDPclient.sendto(str.encode("2.16.840.1.1.2021.255.3.56.9"), (conn, 161))
+    UDPclient.sendto(encoded_message, (conn, 161))
 
     data = UDPclient.recvfrom(bufferSize)[0]
-    print("Received", data.decode())
+    decoded = decodeASN1(data)
+    text = decoded[2]
+    print("Received", text)
 
 def GetRequestRamGB():
+    encoded_message = encodeASN1(oid="1.4", text="Null", val=0)
+
+    print(encoded_message.hex())
+
     agentIp = socket.gethostname()
     conn = bytearray(agentIp, "utf-8")
 
@@ -68,11 +88,17 @@ def GetRequestRamGB():
 
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-    UDPclient.sendto(str.encode("2.16.840.1.113733.3.4.3.2.1.1"), (conn, 161))
+    UDPclient.sendto(encoded_message, (conn, 161))
 
     data = UDPclient.recvfrom(bufferSize)[0]
-    print("Received", data.decode())
+    decoded = decodeASN1(data)
+    text = decoded[2]
+    print("Received", text)
 def GetRequestName():
+    encoded_message = encodeASN1(oid="1.2", text="Null", val=0)
+
+    print(encoded_message.hex())
+
     agentIp = socket.gethostname()
     conn = bytearray(agentIp, "utf-8")
 
@@ -80,12 +106,18 @@ def GetRequestName():
 
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-    UDPclient.sendto(str.encode("2.16.840.1.4.1.27385.3.9.6"), (conn, 161))
+    UDPclient.sendto(encoded_message, (conn, 161))
 
     data = UDPclient.recvfrom(bufferSize)[0]
-    print("Received", data.decode())
+    decoded = decodeASN1(data)
+    text = decoded[1]
+    print("Received", text)
 
 def GetRequestTemperatura():
+    encoded_message = encodeASN1(oid="1.1", text="Null", val=0)
+
+    print(encoded_message.hex())
+
 
     agentIp = socket.gethostname()
     conn = bytearray(agentIp, "utf-8")
@@ -95,10 +127,10 @@ def GetRequestTemperatura():
     UDPclient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
 
-    UDPclient.sendto(str.encode("2.16.840.1.113883.4.9.8.7.6.5"),(conn, 161))
+    UDPclient.sendto(encoded_message,(conn, 161))
 
-    #s.sendall(bytes("GetRequest", "utf-8"))
-    #s.sendall(bytes("Temperature", "utf-8"))
+
     data = UDPclient.recvfrom(bufferSize)[0]
-    print("Received", data.decode())
-#test
+    decoded = decodeASN1(data)
+    text = decoded[2]
+    print("Received", text)
