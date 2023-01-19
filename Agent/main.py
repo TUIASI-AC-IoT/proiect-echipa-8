@@ -1,8 +1,3 @@
-import socket
-
-from pyasn1.codec.ber import decoder
-
-from Host.SNMPPacket import decodeASN1
 from Metode.GetResponse import GetResponse
 from Metode.SetResponse import SetResponse
 from Metode.Trap import *
@@ -13,7 +8,7 @@ while 1:
 
     localIP = socket.gethostname()
     localport = 161
-    bufferSize = 1024;
+    bufferSize = 1024
 
     UDPAgent = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 

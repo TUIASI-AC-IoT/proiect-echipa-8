@@ -1,8 +1,5 @@
 from tkinter import *
 import socket
-from pyasn1.codec.ber import encoder
-from pyasn1.type.univ import Integer, OctetString, ObjectIdentifier
-from pyasn1_modules import rfc1902
 from Host.SNMPPacket import encodeASN1, decodeASN1
 
 

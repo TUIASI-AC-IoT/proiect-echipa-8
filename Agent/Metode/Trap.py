@@ -1,7 +1,4 @@
 import time
-import threading
-from tkinter import *
-from tkinter import messagebox
 import socket
 from Host.SNMPPacket import encodeASN1, decodeASN1
 

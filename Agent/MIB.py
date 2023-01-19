@@ -1,8 +1,6 @@
 import psutil
 import wmi
-
 import time
-from tkinter import *
 from tkinter import messagebox
 
 from pyasn1.type.univ import OctetString
